@@ -70,7 +70,7 @@ class SinglyLinkedList:
             pointer = pointer.next
         
         if not select_node:
-            print('Cannot insert node into the list.')
+            print(f'Cannot insert, {node} does not exist.')
             return
     
         data_node.next = select_node
@@ -95,7 +95,7 @@ class SinglyLinkedList:
             pointer = pointer.next
         
         if not select_node:
-            print('Cannot insert node into the list.')
+            print(f'Cannot delete {node} from the list.')
             return
 
         if not last_pointer:
