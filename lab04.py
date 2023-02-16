@@ -1,13 +1,12 @@
 from lab03 import ArrayStack
 
-
 def isParenthesesMatching(expression: str) -> bool:
     stack = ArrayStack()
 
     for char in expression:
-        if char == '(':
+        if char in '({[':
             stack.push('(')
-        elif char == ')':
+        elif char in ']})':
             stack.pop()
 
     if not stack.isEmpty():
@@ -35,7 +34,7 @@ def copyStack(stack1: ArrayStack, stack2: ArrayStack) -> None:
 
 def inFixToPostfix(expression: str) -> str:
     stack = ArrayStack()
-    postfix = ''
+    postfix: str = ''
 
     for char in expression:
         if char in '*/':
