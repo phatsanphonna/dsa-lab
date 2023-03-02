@@ -1,7 +1,5 @@
 '''Lab 05 & 06'''
 
-from typing import Optional
-
 
 class BSTNode:
     def __init__(self, data: int) -> None:
@@ -111,66 +109,97 @@ class BST:
     #     previousPointer.right = currentPointer
     #     self.root = previousPointer
 
-    def delete(self, data: int) -> None:
-        if self.isEmpty():
-            return None
+    # def delete(self, data: int) -> None:
+    #     if self.isEmpty():
+    #         return None
 
-        currentPointer: BSTNode = self.root
-        previousPointer: BSTNode = None
-        found: BSTNode = None
+    #     currentPointer: BSTNode = self.root
+    #     previousPointer: BSTNode = None
+    #     found: BSTNode = None
 
-        # Find the node to be deleted
-        while currentPointer:
-            if currentPointer.data == data:
-                found = currentPointer
-                break
+    #     # Find the node to be deleted
+    #     while currentPointer:
+    #         if currentPointer.data == data:
+    #             found = currentPointer
+    #             break
 
-            previousPointer = currentPointer
-            if data < currentPointer.data:
-                currentPointer = currentPointer.left
+    #         previousPointer = currentPointer
+    #         if data < currentPointer.data:
+    #             currentPointer = currentPointer.left
+    #         else:
+    #             currentPointer = currentPointer.right
+
+    #     # Node not found
+    #     if not found:
+    #         return
+
+    #     # Node to be deleted has no children
+    #     if not found.left and not found.right:
+    #         if not previousPointer:
+    #             self.root = None
+    #         elif previousPointer.left == found:
+    #             previousPointer.left = None
+    #         else:
+    #             previousPointer.right = None
+    #         return
+
+    #     # Node to be deleted has only one child
+    #     if not found.left or not found.right:
+    #         child = found.left or found.right
+
+    #         if not previousPointer:
+    #             self.root = child
+    #         elif previousPointer.left == found:
+    #             previousPointer.left = child
+    #         else:
+    #             previousPointer.right = child
+    #         return
+
+    #     # Node to be deleted has two children
+    #     replaceNode = found.right
+    #     beforeReplaceNode = found
+
+    #     while replaceNode.left:
+    #         beforeReplaceNode = replaceNode
+    #         replaceNode = replaceNode.left
+
+    #     found.data = replaceNode.data
+
+    #     if beforeReplaceNode.left == replaceNode:
+    #         beforeReplaceNode.left = replaceNode.right
+    #     else:
+    #         beforeReplaceNode.right = replaceNode.right
+
+    def delete(self, data: int):
+        def findMax(tree: BSTNode):
+            if tree.right is None:
+                return tree.data
+            return findMax(tree.right)
+
+        def runDelete(tree: BSTNode, data: int):
+            if tree is None:
+                print("%d not found in your Binary Tree" % data)
+                return
+
+            if data > tree.data:
+                tree.right = runDelete(tree.right, data)
+            elif data < tree.data:
+                tree.left = runDelete(tree.left, data)
             else:
-                currentPointer = currentPointer.right
+                if tree.left is None and tree.right is None:
+                    tree = None
+                elif tree.left is None and tree.right.left is None:
+                    tree = tree.right
+                elif tree.right is None and tree.left.right is None:
+                    tree = tree.left
+                else:
+                    leftLargestNode = findMax(tree.left)
+                    tree.data = leftLargestNode
+                    tree.left = runDelete(tree.left, leftLargestNode)
 
-        # Node not found
-        if not found:
-            return
+            return tree
 
-        # Node to be deleted has no children
-        if not found.left and not found.right:
-            if not previousPointer:
-                self.root = None
-            elif previousPointer.left == found:
-                previousPointer.left = None
-            else:
-                previousPointer.right = None
-            return
-
-        # Node to be deleted has only one child
-        if not found.left or not found.right:
-            child = found.left or found.right
-
-            if not previousPointer:
-                self.root = child
-            elif previousPointer.left == found:
-                previousPointer.left = child
-            else:
-                previousPointer.right = child
-            return
-
-        # Node to be deleted has two children
-        replaceNode = found.right
-        beforeReplaceNode = found
-
-        while replaceNode.left:
-            beforeReplaceNode = replaceNode
-            replaceNode = replaceNode.left
-
-        found.data = replaceNode.data
-
-        if beforeReplaceNode.left == replaceNode:
-            beforeReplaceNode.left = replaceNode.right
-        else:
-            beforeReplaceNode.right = replaceNode.right
+        self.root = runDelete(self.root, data)
 
     def findMin(self) -> int:
         if self.isEmpty():
@@ -234,6 +263,7 @@ def main():
     tree.insert(10)
     tree.insert(33)
     tree.traverse()
+    print()
     tree.delete(14)
     tree.traverse()
     print("Min:", tree.findMin())
