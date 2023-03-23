@@ -43,6 +43,7 @@ class BST:
             return
 
         while currentPointer.left or currentPointer.right:
+            print('cp:', currentPointer.data)
             if not currentPointer.left and data < currentPointer.data:
                 currentPointer.left = BSTNode(data)
                 return
