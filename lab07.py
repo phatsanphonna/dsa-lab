@@ -82,10 +82,9 @@ def randomList(members: int):
 def main():
     '''Main Function'''
 
-    members = [100, 1000, 10000, 100000]
-
+    members = [10000, 100000]
+    
     for member in members:
-
         array1 = randomList(member)
         array2 = randomList(member)
         array3 = randomList(member)
