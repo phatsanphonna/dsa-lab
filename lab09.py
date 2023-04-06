@@ -5,21 +5,18 @@ def isSorted(list: list[int]):
 def insertionSort(array: list[int], last: int):
     comparison = 0
 
-    for i in range(last + 1):
-        current = array[i]
+    for i in range(1, last + 1):
+        hold = i
+        walker = i - 1
 
-        j = i - 1
-
-        while j > -1 and current < array[j]:
-            array[j + 1] = array[j]
-            j -= 1
+        while walker >= 0 and array[hold] < array[walker]:
+            array[walker + 1] = array[walker]
+            array[walker] = array[hold]
+            walker -= 1
 
             comparison += 1
 
-        array[j + 1] = current
-
-        if i == 0:
-            continue
+        hold = walker + 1
 
         print(array)
 
