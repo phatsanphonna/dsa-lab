@@ -86,6 +86,7 @@ def insertionSort(array: list[int], last: int):
 
 def selectionSort(array: list[int], last: int):
     comparison = 0
+    swaps = 0
 
     for i in range(last):
         min = i
@@ -97,10 +98,11 @@ def selectionSort(array: list[int], last: int):
             comparison += 1
 
         array[i], array[min] = array[min], array[i]
+        swaps += 1
 
         print(convertIntegerDeckToCardDeck(array))
 
-    print('Comparison time:', comparison)
+    print('Comparison time:', comparison - swaps)
 
 
 def bubbleSort(array: list[int], last: int):
