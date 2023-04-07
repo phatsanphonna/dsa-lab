@@ -63,9 +63,8 @@ def convertCardDeckToIntegerDeck(deck: list[str]):
 def insertionSort(array: list[int], last: int):
     comparison = 0
 
-    for i in range(last + 1):
+    for i in range(1, last + 1):
         current = array[i]
-
         j = i - 1
 
         while j > -1 and current < array[j]:
@@ -76,12 +75,12 @@ def insertionSort(array: list[int], last: int):
 
         array[j + 1] = current
 
-        if i == 0:
-            continue
+        comparison += 1
 
         print(convertIntegerDeckToCardDeck(array))
+        print(array)
 
-    print('Comparison time:', comparison)
+    print('Comparison time:', comparison - 1)
 
 
 def selectionSort(array: list[int], last: int):
@@ -101,6 +100,7 @@ def selectionSort(array: list[int], last: int):
         swaps += 1
 
         print(convertIntegerDeckToCardDeck(array))
+        print(array)
 
     print('Comparison time:', comparison - swaps)
 
@@ -124,6 +124,7 @@ def bubbleSort(array: list[int], last: int):
         current += 1
 
         print(convertIntegerDeckToCardDeck(array))
+        print(array)
 
     print('Comparison times:', comparison)
 
